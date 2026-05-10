@@ -1,4 +1,142 @@
+USAGE GUIDE FOR REMOTE Puppeteer Browser Server
 
+----------------------------------------------
+Overview
+----------------------------------------------
+This document provides detailed instructions on how to connect to, control, and manage the Puppeteer remote browser server running on a different computer. The server exposes a web interface and API endpoints for remote control and monitoring.
+
+Prerequisites:
+- The server computer must be running the Puppeteer remote server.
+- The server must be accessible over the network (local or over the internet).
+- You have the server's IP address and port number.
+- You have a web browser or API client to send requests.
+
+----------------------------------------------
+1. Verify the Server is Running
+----------------------------------------------
+Ensure the Puppeteer remote server is active on the host computer. The default port is 8080 unless configured otherwise.
+
+Example:
+- On server machine, run the server with:
+  node puppeteer-server.js --port 8080
+
+- Confirm server is running and listening:
+  - On Linux/macOS: `netstat -an | grep 8080`
+  - On Windows: `netstat -an | findstr 8080`
+
+----------------------------------------------
+2. Find the Server's IP Address and Port
+----------------------------------------------
+- IP Address:
+  - On Windows: run `ipconfig` and note IPv4 address.
+  - On Linux/macOS: run `ifconfig` or `ip a`.
+
+- Port:
+  - Default is 8080, unless configured differently.
+
+Example:
+- Server IP: 192.168.1.100
+- Port: 8080
+
+----------------------------------------------
+3. Access the Web Interface
+----------------------------------------------
+Open a web browser on your control computer and navigate to:
+
+http://<server-ip>:<port>/
+
+Example:
+http://192.168.1.100:8080/
+
+- Login credentials:
+  - Default username: `admin`
+  - Default password: `password`
+  
+*Note:* Change default credentials for security.
+
+Once logged in, you will see:
+- List of open tabs
+- Controls to create, switch, close tabs
+- Viewport stream (video)
+- Interaction controls
+
+----------------------------------------------
+4. Control the Browser Remotely via Web Interface
+----------------------------------------------
+- Create a new tab:
+  - Use the "New Tab" button.
+- Switch between tabs:
+  - Select from the tab list.
+- Close a tab:
+  - Click "Close" on the tab.
+- View live viewport:
+  - Watch the video stream at `/viewport.mjpeg`.
+- Send interactions:
+  - Use the interface's tools (click, type, etc.).
+
+----------------------------------------------
+5. Use API Endpoints for Programmatic Control
+----------------------------------------------
+The server exposes REST API endpoints for automation.
+
+Base URL:
+http://<server-ip>:<port>/
+
+Example:
+http://192.168.1.100:8080/
+
+Common API endpoints:
+
+a) Create a new tab
+- POST /create-tab
+- Request body: (optional settings)
+  
+b) Switch to a tab
+- POST /switch-tab
+- Request body:
+  {
+    "tabId": "<tab-id>"
+  }
+
+c) Close a tab
+- POST /close-tab
+- Request body:
+  {
+    "tabId": "<tab-id>"
+  }
+
+d) Send interaction (click, input, etc.)
+- POST /carpediem
+- Request body:
+  {
+    "action": "click",
+    "selector": "#button",
+    "x": 100,
+    "y": 200,
+    "text": "hello"
+  }
+
+e) Viewport stream:
+- MJPEG stream at:
+  http://<server-ip>:<port>/viewport.mjpeg
+
+*Note:* Consult your server’s API documentation for full details.
+
+----------------------------------------------
+6. Example: Automate with cURL
+----------------------------------------------
+Create a new tab:
+curl -X POST http://192.168.1.100:8080/create-tab
+          Copy
+          Run
+          
+Switch to a tab:
+      curl -X POST -H "Content-Type: application/json" -d '{"tabId": "tab-123"}' http://192.168.1.100:8080/switch-tab
+          Copy
+          Run
+          
+Perform a click:
+      curl -X POST -H "Content-Type: application/json" -d '{"action": "click", "selector": "#submit"}' http://192.168.1.100:8080/carpediem
 ----------------------------------------------
 7. Security Recommendations
 ----------------------------------------------
