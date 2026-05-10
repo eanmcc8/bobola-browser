@@ -1,0 +1,26 @@
+
+----------------------------------------------
+7. Security Recommendations
+----------------------------------------------
+- Change default username/password.
+- Use HTTPS if exposing over the internet.
+- Restrict access via firewall rules.
+- Use VPN or SSH tunneling for remote access.
+
+----------------------------------------------
+8. Troubleshooting
+----------------------------------------------
+- Cannot connect: verify IP, port, and network connectivity.
+- Authentication errors: check credentials.
+- API not responding: ensure server is running and endpoints are correct.
+- Viewport stream not visible: check URL and network settings.
+
+----------------------------------------------
+9. Additional Resources
+----------------------------------------------
+- Server documentation: [Link to your server’s docs]
+- Support contact: [Your support contact info]
+
+--------------------------------------------------------------
+End of Usage Guide
+--------------------------------------------------------------
