@@ -11,8 +11,8 @@
   "description": "Remote Puppeteer server with auth and interaction save/load",
   "main": "index.js",
   "scripts": {
+    "format": "standard --fix"
     "test": "nodemon index.js 8080",
     "start": "node index.js",
-    "format": "standard --fix"
   }
 }
