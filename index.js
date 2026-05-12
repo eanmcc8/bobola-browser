@@ -1,13 +1,13 @@
-// import fs from 'fs';
-// import express from 'express';
-// import puppeteer from 'puppeteer';
-// import mjpegServer from 'mjpeg-server';
-// import {fileURLToPath} from 'url';
-const fs = require('fs');
-const express = require('express');
-const puppeteer = require('puppeteer');
-const mjpegServer = require('mjpeg-server');
-const fileURLToPath = require('url');
+import fs from 'fs';
+import express from 'express';
+import puppeteer from 'puppeteer';
+import mjpegServer from 'mjpeg-server';
+import {fileURLToPath} from 'url';
+//const fs = require('fs');
+//const express = require('express');
+//const puppeteer = require('puppeteer');
+//const mjpegServer = require('mjpeg-server');
+//const fileURLToPath = require('url');
 
 // Configuration
 const config = {
