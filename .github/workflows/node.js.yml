@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     strategy:
       matrix:
@@ -28,12 +28,7 @@ jobs:
 
       - name: Fix audit issues
         run: npm audit --fix
-
-      - name: Run Node Formatter
-        uses: beauwilliams/run-node-formatter@latest
-        with:
-          env: ${{ secrets.GITHUB_TOKEN }}
-
+        
       - name: Run Format Script
         run: npm run format --if-present
 
