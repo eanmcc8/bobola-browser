@@ -1,18 +1,19 @@
 {
+  "name": "bobola-browser",
+  "version": "1.0.0",
+  "description": "Remote Puppeteer server with auth and interaction save/load",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install",
+    "format": "standard --fix",
+    "test": "nodemon index.js 8080",
+    "start": "node index.js"
+  },
   "dependencies": {
     "express": "latest",
     "mjpeg-server": "latest",
     "nocache": "latest",
     "puppeteer": "latest"
-  },
-  "type": "module",
-  "name": "bobola-browser",
-  "version": "1.0.0",
-  "description": "Remote Puppeteer server with auth and interaction save/load",
-  "main": "index.js",
-  "scripts": {
-    "format": "standard --fix",
-    "test": "nodemon index.js 8080",
-    "start": "node index.js",
   }
 }
