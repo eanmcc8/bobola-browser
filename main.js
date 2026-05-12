@@ -60,8 +60,8 @@ function basicAuth(req, res, next) {
 }
 
 // Main async function
-async function start({ port = 8080, startUrl = startUrl } = {}) {
-  const browser = await puppeteer.launch({ headless: true });
+async function start({ port = 8080, startUrl = config.startUrl } = {}) {
+  const browser = await puppeteer.launch({ headless: config.headless });
   const tabs = []; // array of { page, title, url, mjpegClients: [] }
 
   // Create initial tab
@@ -83,7 +83,7 @@ async function start({ port = 8080, startUrl = startUrl } = {}) {
   app.get('/input_overlay.html', async (req, res) => {
     const currentTab = getCurrentTab(req, tabs);
     const keyInputHasFocus = await currentTab.page.evaluate(() => {
-      return document.activeEleament.matches('input,textarea,[contenteditable],select');
+      return document.activeElement.matches('input,textarea,[contenteditable],select');
     });
     res.type('html');
     res.end(renderInputOverlay({ keyInputHasFocus }));
@@ -180,7 +180,7 @@ async function start({ port = 8080, startUrl = startUrl } = {}) {
   // Create new tab
   app.post('/tab/new', async (req, res) => {
     const page = await browser.newPage();
-    const url = req.body.url || startUrl;
+    const url = req.body.url || config.startUrl;
     await page.goto(url);
     tabs.push({ page, title: await page.title(), url, mjpegClients: [] });
     res.json({ success: true, tabId: tabs.length - 1 });
