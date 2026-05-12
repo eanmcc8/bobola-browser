@@ -1,10 +1,12 @@
+# yamllint disable-line rule:truthy
 name: Lint
 
-on: # yamllint disable-line rule:truthy
-  push: null
-  pull_request: null
+on:
+  push:
+    branches:
+      - main  # replace with your branch name if needed
 
-permissions: {}
+permissions: write-all
 
 jobs:
   build:
