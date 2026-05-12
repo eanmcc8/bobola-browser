@@ -29,6 +29,17 @@ jobs:
       - name: Fix audit issues
         run: npm audit --fix
 
+      - name: Run Node Formatter
+        uses: beauwilliams/run-node-formatter@latest
+        with:
+          env: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run Format Script
+        run: npm run format --if-present
+
+      - name: AIOLint Linter
+        uses: jonesroot/aiolint-action@1.0.0-beta
+        
       - name: Build project (if applicable)
         run: npm run build --if-present
 
@@ -37,14 +48,6 @@ jobs:
 
       - name: Start app (if applicable)
         run: npm start --if-present
-
-      - name: Cache node modules
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
 
       - name: Configure Git for committing
         run: |
@@ -58,14 +61,3 @@ jobs:
           git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Run Node Formatter
-        uses: beauwilliams/run-node-formatter@latest
-        with:
-          env: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Run Format Script
-        run: npm run format --if-present
-
-      - name: AIOLint Linter
-        uses: jonesroot/aiolint-action@1.0.0-beta
