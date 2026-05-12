@@ -11,7 +11,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -20,15 +19,26 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm audit --fix
-    - run: npm run format --if-present
-    - run: npm run build --if-present
-    - run: npm test --if-present
-    - run: npm start --if-present
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - run: npm ci
+      - run: npm audit --fix
+      - run: npm run build --if-present
+      - run: npm test --if-present
+      - run: npm start --if-present
+
+      - name: Run Node Formatter
+        uses: beauwilliams/run-node-formatter@latest
+        with:
+          env: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run Format Script
+        run: npm run format --if-present
+
+      - name: AIOLint Linter
+        uses: jonesroot/aiolint-action@1.0.0-beta
